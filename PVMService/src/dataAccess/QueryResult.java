@@ -1,4 +1,4 @@
-package common;
+package dataAccess;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

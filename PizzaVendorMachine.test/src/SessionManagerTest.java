@@ -2,9 +2,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import common.Session;
-import common.SessionManager;
-import common.SessionManagerFactory;
+import dataAccess.Session;
+import dataAccess.SessionManager;
+import dataAccess.SessionManagerFactory;
 
 
 public class SessionManagerTest {

@@ -1,4 +1,4 @@
-package common;
+package dataAccess;
 
 public class SessionManagerFactory {
 	public static SessionManager createSessionManager()
