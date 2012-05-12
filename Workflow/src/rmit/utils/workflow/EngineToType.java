@@ -9,9 +9,10 @@ public class EngineToType {
 		this.sc = sc;
 	}
 
-	public void when(Condition condition)
+	public EngineFromType when(Condition condition)
 	{
 		sc.condition = condition;
+		return new EngineFromType(engineFromType.getEngine(), sc.state);
 	}
 	
 	public EngineToType to(State state)
