@@ -1,36 +1,34 @@
 package states;
 import java.io.IOException;
 
+import presenters.SelectPizzaPresenter;
+
+import rmit.mvvm.MVVMFramework;
+import rmit.mvvm.Presenter;
+import rmit.mvvm.View;
 import rmit.utils.workflow.State;
+import services.PizzaService;
 import thinlet.*;
+import viewmodels.SelectPizzaViewModel;
+import views.SelectPizzaView;
 
 public class SelectPizzaState extends State {
-	@Override
-	public void start() {
-		Thinlet thinlet = new Thinlet();
-		try {
-			thinlet.add(thinlet.parse("/UIDefinition/SelectPizza.xml"));
-			new FrameLauncher("Select Pizza", thinlet, 320, 240);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("Press Enter to confirm selection");
-				
-				try {
-					while (System.in.read() != 13);
-					exit();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			
-		}).start();
-		
-
-		
+	private PizzaService pizzaService; 
+	
+	public SelectPizzaState(PizzaService pizzaService) {
+		this.pizzaService = pizzaService;
 	}
 
+	@Override
+	public void start() {
+		Presenter presenter = new SelectPizzaPresenter(this, pizzaService);
+		View view= new SelectPizzaView(); 
+		MVVMFramework framework = new MVVMFramework(presenter, view, SelectPizzaViewModel.class);
+		framework.load();
+	}
+	
+	public void stop()
+	{
+		this.exit();
+	}
 }

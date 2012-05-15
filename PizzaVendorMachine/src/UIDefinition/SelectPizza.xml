@@ -1,7 +1,9 @@
-<panel gap="4" top="4" left="4">
-  <textfield name="number1" columns="4" />
-  <label text="+" />
-  <textfield name="number2" columns="4" />
-  <button text="=" />
-  <textfield name="result" editable="false" />
+<panel gap="4" top="4" left="4" bottom="4" right="1" columns="1">
+  <panel name="Select Pizza Type" columns="2" weightx="100" weighty="90" >
+  		<label text="Select Pizza Base:"/>
+  		<list name="pizzaBase" weightx="100" action="selectPizzaBase(this)" />
+  		<label text="Select Pizza Toppings:"/>
+  		<list name="pizzaTopping" selection="multiple"  action="selectPizzaToppings(this)"/>
+  </panel>
+  <button text="Confirm" weighty="10" action="clickConfirm()" />
 </panel>

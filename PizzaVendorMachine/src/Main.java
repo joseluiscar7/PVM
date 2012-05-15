@@ -1,4 +1,5 @@
 import rmit.utils.workflow.*;
+import services.*;
 import states.*;
 
 
@@ -8,9 +9,11 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		PizzaService pizzaService = new PizzaServiceImpl();
+		
 		PVMStateData stateData = new PVMStateData();
 		
-		SelectPizzaState selectPizzaState = new SelectPizzaState();
+		SelectPizzaState selectPizzaState = new SelectPizzaState(pizzaService);
 		OrderPizzaState orderPizzaState = new OrderPizzaState();
 		DeliverPizzaState deliverPizzaState = new DeliverPizzaState();
 		
