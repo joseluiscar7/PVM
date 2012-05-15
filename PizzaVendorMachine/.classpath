@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Workflow"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PVMService"/>
+	<classpathentry kind="lib" path="C:/git/PVM/thinlet/lib/thinlet.jar" sourcepath="C:/git/PVM/thinlet/src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
