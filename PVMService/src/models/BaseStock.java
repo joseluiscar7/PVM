@@ -1,12 +1,12 @@
 package models;
 
 public class BaseStock {
-	private int id;
+	private int vendorId;
 	private PizzaBase base;
 	private int count;
-	public BaseStock(int id, PizzaBase base, int count) {
+	public BaseStock(int vendorId, PizzaBase base, int count) {
 		super();
-		this.id = id;
+		this.vendorId = vendorId;
 		this.base = base;
 		this.count = count;
 	}
@@ -16,8 +16,8 @@ public class BaseStock {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	public int getId() {
-		return id;
+	public int getVendorId() {
+		return vendorId;
 	}
 	public PizzaBase getBase() {
 		return base;

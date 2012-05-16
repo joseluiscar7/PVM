@@ -9,7 +9,8 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		PizzaService pizzaService = new PizzaServiceImpl();
+		
+		PizzaService pizzaService = ServiceLocator.getPizzaService();
 		
 		PVMStateData stateData = new PVMStateData();
 		

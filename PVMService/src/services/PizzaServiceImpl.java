@@ -2,18 +2,27 @@ package services;
 
 import java.util.List;
 
-import repositories.OrderRepository;
-import repositories.StockRepository;
-import repositories.VendorRepository;
+import dataServices.OrderDataService;
+import dataServices.StockDataService;
+import dataServices.VendorDataService;
+
 import models.BaseStock;
 import models.Order;
 import models.ToppingStock;
 import models.Vendor;
 
 public class PizzaServiceImpl implements PizzaService {
-	private OrderRepository orderRepository;
-	private StockRepository stockRepository;
-	private VendorRepository vendorRepository;
+	private OrderDataService orderRepository;
+	private StockDataService stockRepository;
+	private VendorDataService vendorRepository;
+
+	public PizzaServiceImpl(OrderDataService orderRepository, StockDataService stockRepository, VendorDataService vendorRepository)
+	{
+		this.orderRepository = orderRepository;
+		this.stockRepository = stockRepository;
+		this.vendorRepository = vendorRepository;
+	}
+
 	@Override
 	public Vendor getVendorById(int id) {
 		return vendorRepository.getById(id);
@@ -53,8 +62,8 @@ public class PizzaServiceImpl implements PizzaService {
 		b.setCount(b.getCount() - 1);
 		t.setCount(t.getCount() - 1);
 		
-		stockRepository.save(b);
-		stockRepository.save(t);
+		stockRepository.saveAmount(b);
+		stockRepository.saveAmount(t);
 		return ret;
 	}
 	
