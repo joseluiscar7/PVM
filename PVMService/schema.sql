@@ -110,7 +110,7 @@ insert into CountryCoins (CountryID, Name, Value) values(3, '5 rupees', 5);
 create table Vendor(ID integer primary key autoincrement, CountryID integer references Country(ID), Address varchar(250));
 insert into Vendor (CountryID, Address) values(1, 'RMIT');
 
-create table VendorStock(ID integer primary key autoincrement, VendorID integer references Vendor(ID), BaseID integer reference Base(ID), ToppingID integer references Topping(ID), Count integer);
+create table VendorStock(ID integer primary key autoincrement, VendorID integer references Vendor(ID), BaseID integer references Base(ID), ToppingID integer references Topping(ID), Count integer);
 insert into VendorStock (VendorID, BaseID, ToppingID, Count) values(1, 1, -1, 10);
 insert into VendorStock (VendorID, BaseID, ToppingID, Count) values(1, 2, -1, 10);
 insert into VendorStock (VendorID, BaseID, ToppingID, Count) values(1, 3, -1, 10);
@@ -125,4 +125,4 @@ insert into VendorStock (VendorID, BaseID, ToppingID, Count) values(1, -1, 3, 40
 insert into VendorStock (VendorID, BaseID, ToppingID, Count) values(1, -1, 4, 40);
 insert into VendorStock (VendorID, BaseID, ToppingID, Count) values(1, -1, 5, 40);
 
-create table Order (ID integer primary key autoincrement, VendorID integer references Vendor(ID), BaseID integer reference Base(ID), ToppingID integer references Topping(ID), orderTime integer, amount real);
+create table Orders(ID integer primary key autoincrement, VendorID integer references Vendor(ID), BaseID integer references Base(ID), ToppingID integer references Topping(ID), OrderTime integer, Amount real);

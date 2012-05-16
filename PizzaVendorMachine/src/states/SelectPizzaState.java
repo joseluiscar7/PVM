@@ -1,6 +1,4 @@
 package states;
-import java.io.IOException;
-
 import presenters.SelectPizzaPresenter;
 
 import rmit.mvvm.MVVMFramework;
@@ -8,7 +6,6 @@ import rmit.mvvm.Presenter;
 import rmit.mvvm.View;
 import rmit.utils.workflow.State;
 import services.PizzaService;
-import thinlet.*;
 import viewmodels.SelectPizzaViewModel;
 import views.SelectPizzaView;
 
@@ -27,8 +24,8 @@ public class SelectPizzaState extends State {
 		framework.load();
 	}
 	
-	public void stop()
+	public PVMStateContext getStateContext()
 	{
-		this.exit();
+		return (PVMStateContext)super.getStateContext();
 	}
 }

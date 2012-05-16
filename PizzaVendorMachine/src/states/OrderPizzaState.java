@@ -9,7 +9,7 @@ public class OrderPizzaState extends State {
 	@Override
 	public void start() {
 		System.out.println("Press Enter to confirm order or 'C' to cancel the order");
-		PVMStateData data = (PVMStateData)this.getStateData();
+		PVMStateContext data = (PVMStateContext)this.getStateContext();
 		try {
 			int i;
 			while((i = System.in.read()) != 13 && i != 67);
@@ -18,7 +18,7 @@ public class OrderPizzaState extends State {
 			else
 				data.setCancelPayment(false);
 			
-			this.exit();
+			this.stop();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

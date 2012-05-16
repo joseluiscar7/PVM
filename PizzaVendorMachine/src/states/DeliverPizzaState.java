@@ -12,7 +12,7 @@ public class DeliverPizzaState extends State {
 		
 		try {
 			while (System.in.read() != 13);
-			this.exit();
+			this.stop();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

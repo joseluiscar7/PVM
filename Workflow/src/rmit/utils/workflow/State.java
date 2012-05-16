@@ -3,12 +3,12 @@ package rmit.utils.workflow;
 public abstract class State {
 	private Engine engine;
 	
-	protected StateData getStateData()
+	protected StateContext getStateContext()
 	{
-		return engine.getStateData();
+		return engine.getStateContext();
 	}
 	
-	protected void exit()
+	public void stop()
 	{
 		this.engine.exit(this);
 	}

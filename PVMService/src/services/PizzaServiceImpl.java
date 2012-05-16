@@ -12,20 +12,20 @@ import models.ToppingStock;
 import models.Vendor;
 
 public class PizzaServiceImpl implements PizzaService {
-	private OrderDataService orderRepository;
-	private StockDataService stockRepository;
-	private VendorDataService vendorRepository;
+	private OrderDataService orderDataService;
+	private StockDataService stockDataService;
+	private VendorDataService vendorDataService;
 
-	public PizzaServiceImpl(OrderDataService orderRepository, StockDataService stockRepository, VendorDataService vendorRepository)
+	public PizzaServiceImpl(OrderDataService orderDataService, StockDataService stockDataService, VendorDataService vendorDataService)
 	{
-		this.orderRepository = orderRepository;
-		this.stockRepository = stockRepository;
-		this.vendorRepository = vendorRepository;
+		this.orderDataService = orderDataService;
+		this.stockDataService = stockDataService;
+		this.vendorDataService = vendorDataService;
 	}
 
 	@Override
 	public Vendor getVendorById(int id) {
-		return vendorRepository.getById(id);
+		return vendorDataService.getById(id);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class PizzaServiceImpl implements PizzaService {
 		List<ToppingStock> toppingStockList = order.getVendor().getToppingStockList();
 		
 		
-		Order ret = orderRepository.add(order);
+		Order ret = orderDataService.add(order);
 		
 		BaseStock b = null;
 		ToppingStock t = null;
@@ -62,8 +62,8 @@ public class PizzaServiceImpl implements PizzaService {
 		b.setCount(b.getCount() - 1);
 		t.setCount(t.getCount() - 1);
 		
-		stockRepository.saveAmount(b);
-		stockRepository.saveAmount(t);
+		stockDataService.saveAmount(b);
+		stockDataService.saveAmount(t);
 		return ret;
 	}
 	

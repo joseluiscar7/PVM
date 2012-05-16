@@ -3,7 +3,7 @@ package rmit.utils.workflow;
 import java.util.*;
 
 public class Engine {
-	private StateData data;
+	private StateContext context;
 	private Map<State, List<StateCondition>> stateMap = new HashMap();
 	
 	StateCondition add(State src, State dst, Condition cond)
@@ -22,10 +22,10 @@ public class Engine {
 		return result;
 	}
 	
-	void start(State state, StateData data)
+	void start(State state, StateContext context)
 	{
 		state.registerEngine(this);
-		this.data = data;
+		this.context = context;
 		state.start();
 	}
 	
@@ -35,8 +35,8 @@ public class Engine {
 		return new EngineFromType(this, state);
 	}
 
-	StateData getStateData() {
-		return data;
+	StateContext getStateContext() {
+		return context;
 	}
 
 	void exit(State state) {
@@ -46,7 +46,7 @@ public class Engine {
 		List<StateCondition> scList = stateMap.get(state);
 		for(StateCondition sc : scList)
 		{
-			if (sc.condition != null && !sc.condition.check(data))
+			if (sc.condition != null && !sc.condition.check(context))
 				continue;
 			sc.state.start();
 			break;

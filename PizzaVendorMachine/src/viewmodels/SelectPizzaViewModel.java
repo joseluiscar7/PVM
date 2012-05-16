@@ -14,7 +14,7 @@ public interface SelectPizzaViewModel extends ViewModel {
 	boolean getExitView();
 	void setExitView(boolean value);
 	
-	void eventSelectPizzaBase(String name);
-	void eventSelectPizzaToppings(String[] name);
+	void eventSelectPizzaBase(int index);
+	void eventSelectPizzaToppings(Object[] indices);
 	void eventConfirm();
 }

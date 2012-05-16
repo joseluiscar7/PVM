@@ -12,6 +12,7 @@ import viewmodels.SelectPizzaViewModel;
 public class SelectPizzaPresenter extends Presenter {
 	private SelectPizzaState selectPizzaState;
 	private PizzaService pizzaService;
+	private Vendor vendor;
 	
 	public SelectPizzaPresenter(SelectPizzaState selectPizzaState, PizzaService pizzaService) {
 		this.selectPizzaState = selectPizzaState;
@@ -25,7 +26,7 @@ public class SelectPizzaPresenter extends Presenter {
 	
 	public void load()
 	{
-		Vendor vendor = pizzaService.getVendorById(1);
+		vendor = pizzaService.getVendorById(1);
 		List<String> pizzaBaseList = new ArrayList();
 		List<BaseStock> baseList = vendor.getBaseStockList();
 		for(BaseStock bs : baseList)
@@ -47,19 +48,26 @@ public class SelectPizzaPresenter extends Presenter {
 	@BindEvent(name="SelectPizzaBase")
 	public void onSelectPizzaBase(Object[] args)
 	{
-		System.out.println((String)args[0]);
+		selectPizzaState.getStateContext().setPizzaBase(vendor.getBaseStockList().get((Integer)args[0]).getBase());
 	}
 	
 	@BindEvent(name="SelectPizzaToppings")
 	public void onSelectPizzaToppings(Object[] args)
 	{
-		System.out.println("toppings selected");
+		Object[] indices = (Object[])args[0];
+		List selectedToppings = new ArrayList();
+		for(Object i:indices)
+		{
+			selectedToppings.add(vendor.getToppingStockList().get((Integer)i).getTopping());			
+		}
+		selectPizzaState.getStateContext().setPizzaToppings((PizzaTopping[]) selectedToppings.toArray(new PizzaTopping[] {}));
 	}
 	
 	@BindEvent(name="Confirm")
 	public void onConfirm(Object[] args)
 	{
 		getViewModel().setExitView(true);
+		System.out.println(selectPizzaState.getStateContext().getPizzaToppings()[0].getName());
 		selectPizzaState.stop();
 	}
 }

@@ -22,7 +22,7 @@ public class EngineFromType {
 		return new EngineToType(this, result);
 	}
 	
-	public void start(StateData data)
+	public void start(StateContext data)
 	{
 		engine.start(srcState, data);
 	}

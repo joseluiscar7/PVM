@@ -1,7 +1,7 @@
 package views;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 import rmit.mvvm.BindValue;
 import rmit.mvvm.View;
@@ -70,18 +70,20 @@ public class SelectPizzaView extends View {
 	
 	public void selectPizzaBase(Object list)
 	{
-		Object item = thinlet.getSelectedItem(list);
-		getViewModel().eventSelectPizzaBase(thinlet.getString(item, "text"));
+		int itemIndex = thinlet.getSelectedIndex(list);
+		getViewModel().eventSelectPizzaBase(itemIndex);
 	}
 	
 	public void selectPizzaToppings(Object list)
 	{
 		Object[] items = thinlet.getSelectedItems(list);
-		String[] values = new String[items.length];
-		int i = 0;
+		List allItems = Arrays.asList(thinlet.getItems(list));
+		List<Integer> values = new ArrayList();
 		for(Object item : items)
-			values[i++] = thinlet.getString(item, "text");
-		getViewModel().eventSelectPizzaToppings(values);
+		{
+			values.add(allItems.indexOf(item));
+		}
+		getViewModel().eventSelectPizzaToppings(values.toArray());
 	}
 	
 	public void clickConfirm()

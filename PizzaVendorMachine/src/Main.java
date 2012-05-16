@@ -12,7 +12,7 @@ public class Main {
 		
 		PizzaService pizzaService = ServiceLocator.getPizzaService();
 		
-		PVMStateData stateData = new PVMStateData();
+		PVMStateContext stateContext = new PVMStateContext();
 		
 		SelectPizzaState selectPizzaState = new SelectPizzaState(pizzaService);
 		OrderPizzaState orderPizzaState = new OrderPizzaState();
@@ -21,12 +21,12 @@ public class Main {
 		Engine engine = new Engine();
 		engine.from(selectPizzaState).to(orderPizzaState).to(selectPizzaState).when(new Condition() {
 			@Override
-			public boolean check(StateData data) {
-				return ((PVMStateData)data).isCancelPayment();
+			public boolean check(StateContext data) {
+				return ((PVMStateContext)data).isCancelPayment();
 			}
 		});
 		engine.from(orderPizzaState).to(deliverPizzaState).to(selectPizzaState);
-		engine.from(selectPizzaState).start(stateData);
+		engine.from(selectPizzaState).start(stateContext);
 	}
 
 }

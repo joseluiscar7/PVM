@@ -1,5 +1,5 @@
 package rmit.utils.workflow;
 
 public interface Condition {
-	boolean check(StateData data);
+	boolean check(StateContext data);
 }
