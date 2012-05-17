@@ -14,19 +14,20 @@ public class Main {
 		
 		PVMStateContext stateContext = new PVMStateContext();
 		
+		InitState initState = new InitState();
 		SelectPizzaState selectPizzaState = new SelectPizzaState(pizzaService);
 		OrderPizzaState orderPizzaState = new OrderPizzaState();
 		DeliverPizzaState deliverPizzaState = new DeliverPizzaState();
 		
 		Engine engine = new Engine();
-		engine.from(selectPizzaState).to(orderPizzaState).to(selectPizzaState).when(new Condition() {
+		engine.from(initState).to(selectPizzaState).to(orderPizzaState).to(selectPizzaState).when(new Condition() {
 			@Override
 			public boolean check(StateContext data) {
 				return ((PVMStateContext)data).isCancelPayment();
 			}
 		});
 		engine.from(orderPizzaState).to(deliverPizzaState).to(selectPizzaState);
-		engine.from(selectPizzaState).start(stateContext);
+		engine.from(initState).start(stateContext);
 	}
 
 }

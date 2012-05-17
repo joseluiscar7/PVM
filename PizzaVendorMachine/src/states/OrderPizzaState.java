@@ -23,5 +23,8 @@ public class OrderPizzaState extends State {
 			e.printStackTrace();
 		}
 	}
-
+	public PVMStateContext getStateContext()
+	{
+		return (PVMStateContext)super.getStateContext();
+	}
 }

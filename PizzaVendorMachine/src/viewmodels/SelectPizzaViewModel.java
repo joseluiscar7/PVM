@@ -11,6 +11,9 @@ public interface SelectPizzaViewModel extends ViewModel {
 	List<String> getPizzaToppingList();
 	void setPizzaToppingList(List<String> value);
 	
+	float getPrice();
+	void setPrice(float value);
+	
 	boolean getExitView();
 	void setExitView(boolean value);
 	

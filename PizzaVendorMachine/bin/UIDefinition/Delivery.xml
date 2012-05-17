@@ -1,0 +1,5 @@
+<panel gap="4" top="4" left="4" bottom="4" right="1" columns="1">
+  <label text="Your meal is ready! Please collect your pizza." weighty="20" weightx="100"/>
+  <textarea name="info" weighty="60" />
+  <button text="Return To Selection" weighty="20" action="clickReturn()" />
+</panel>

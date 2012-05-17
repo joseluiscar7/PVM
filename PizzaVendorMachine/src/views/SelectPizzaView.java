@@ -68,6 +68,15 @@ public class SelectPizzaView extends View {
 		frameLauncher.dispose();
 	}
 	
+	
+	@BindValue(name="Price")
+	public void updatePrice()
+	{
+		Object lbPrice = thinlet.find("price");
+		thinlet.setString(lbPrice, "text", "Price:  " + getViewModel().getPrice());
+	}
+
+	
 	public void selectPizzaBase(Object list)
 	{
 		int itemIndex = thinlet.getSelectedIndex(list);

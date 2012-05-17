@@ -5,5 +5,6 @@
   		<label text="Select Pizza Toppings:"/>
   		<list name="pizzaTopping" selection="multiple"  action="selectPizzaToppings(this)"/>
   </panel>
-  <button text="Confirm" weighty="10" action="clickConfirm()" />
+  <label name="price" weightx="100" weighty="5" />
+  <button text="Pay" weighty="5" action="clickConfirm()" />
 </panel>

@@ -6,16 +6,17 @@ import models.*;
 
 import rmit.mvvm.*;
 import services.PizzaService;
+import states.PVMStateContext;
 import states.SelectPizzaState;
 import viewmodels.SelectPizzaViewModel;
 
 public class SelectPizzaPresenter extends Presenter {
-	private SelectPizzaState selectPizzaState;
+	private SelectPizzaState state;
 	private PizzaService pizzaService;
 	private Vendor vendor;
 	
 	public SelectPizzaPresenter(SelectPizzaState selectPizzaState, PizzaService pizzaService) {
-		this.selectPizzaState = selectPizzaState;
+		this.state = selectPizzaState;
 		this.pizzaService = pizzaService;
 	}
 
@@ -26,7 +27,7 @@ public class SelectPizzaPresenter extends Presenter {
 	
 	public void load()
 	{
-		vendor = pizzaService.getVendorById(1);
+		vendor = pizzaService.getVendorById(state.getStateContext().getVendorID());
 		List<String> pizzaBaseList = new ArrayList();
 		List<BaseStock> baseList = vendor.getBaseStockList();
 		for(BaseStock bs : baseList)
@@ -43,12 +44,42 @@ public class SelectPizzaPresenter extends Presenter {
 
 		getViewModel().setPizzaBaseList(pizzaBaseList);
 		getViewModel().setPizzaToppingList(pizzaToppingList);
+		
+		PVMStateContext context = state.getStateContext();
+		context.setPizzaBase(null);
+		context.setPizzaToppings(null);
+		updatePrice();		
+	}
+	
+	private void updatePrice()
+	{
+		PVMStateContext context = state.getStateContext();
+		float price = 0, tax = 0;
+		PizzaBase pizzaBase = context.getPizzaBase();
+		if (pizzaBase != null)
+		{
+			price = pizzaBase.getPrice();
+			tax = pizzaBase.getTax();
+		}
+		PizzaTopping[] toppings = context.getPizzaToppings();
+		if (toppings != null)
+		{
+			for(PizzaTopping t : toppings)
+			{
+				price += t.getPrice();
+				tax += t.getTax();			
+			}
+		}
+		context.setPrice(price);
+		context.setTax(tax);
+		getViewModel().setPrice(price);
 	}
 	
 	@BindEvent(name="SelectPizzaBase")
 	public void onSelectPizzaBase(Object[] args)
 	{
-		selectPizzaState.getStateContext().setPizzaBase(vendor.getBaseStockList().get((Integer)args[0]).getBase());
+		state.getStateContext().setPizzaBase(vendor.getBaseStockList().get((Integer)args[0]).getBase());
+		updatePrice();
 	}
 	
 	@BindEvent(name="SelectPizzaToppings")
@@ -60,14 +91,17 @@ public class SelectPizzaPresenter extends Presenter {
 		{
 			selectedToppings.add(vendor.getToppingStockList().get((Integer)i).getTopping());			
 		}
-		selectPizzaState.getStateContext().setPizzaToppings((PizzaTopping[]) selectedToppings.toArray(new PizzaTopping[] {}));
+		state.getStateContext().setPizzaToppings((PizzaTopping[]) selectedToppings.toArray(new PizzaTopping[] {}));
+		updatePrice();
 	}
 	
 	@BindEvent(name="Confirm")
 	public void onConfirm(Object[] args)
 	{
+		PVMStateContext context = state.getStateContext();
+		if (context.getPizzaBase() == null ||  context.getPizzaToppings() == null)
+			return;
 		getViewModel().setExitView(true);
-		System.out.println(selectPizzaState.getStateContext().getPizzaToppings()[0].getName());
-		selectPizzaState.stop();
+		state.stop();
 	}
 }
