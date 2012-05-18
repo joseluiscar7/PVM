@@ -1,10 +1,7 @@
 <panel gap="4" top="4" left="4" bottom="4" right="1" columns="2">
-  <panel columns="1" weightx="80" weighty="100">
-    <button text="Pizza Vendor Machine (AUSTRALIA)" weighty="10" action="clickPVMAus()" />
-    <button text="Pizza Vendor Machine (CHINA)" weighty="10" action="clickPVMChina()" />
-    <button text="Pizza Vendor Machine (INDIA)" weighty="10" action="clickPVMIndia()" />
-  </panel>
+  <label name="lbDueAmount" weightx="100" weighty="10"/>
+  <list name="ltMoney" action="payMoney(this)"/>
   <panel columns="1" weightx="20">
-    <button text="Service" weightx="100" weighty="100" action="clickService()" />
+    <button text="Cancel" weightx="100" weighty="100" action="clickCancel()" />
   </panel>
 </panel>

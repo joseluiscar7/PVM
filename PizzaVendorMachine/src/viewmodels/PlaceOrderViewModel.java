@@ -6,13 +6,12 @@ import models.Coin;
 
 import rmit.mvvm.ViewModel;
 
-public interface DeliveryViewModel extends ViewModel {
+public interface PlaceOrderViewModel extends ViewModel {
 	boolean getExitView();
 	void setExitView(boolean value);
-	
-	String getPizzaInfo();
-	void setPizzaInfo(String value);
-	
-	void eventReturn();
 
+	Coin[] getCoins();
+	void setCoins(Coin[] value);
+	
+	void eventCancel();
 }
