@@ -1,7 +1,5 @@
-<panel gap="4" top="4" left="4" bottom="4" right="1" columns="2">
+<panel gap="4" top="4" left="4" bottom="4" right="1" columns="1">
   <label name="lbDueAmount" weightx="100" weighty="10"/>
-  <list name="ltMoney" action="payMoney(this)"/>
-  <panel columns="1" weightx="20">
-    <button text="Cancel" weightx="100" weighty="100" action="clickCancel()" />
-  </panel>
+  <list name="ltMoney" weightx="100" weighty="80" action="payMoney(this)"/>
+  <button text="Cancel + Refund" weightx="100" weighty="10" action="clickCancel()" />
 </panel>

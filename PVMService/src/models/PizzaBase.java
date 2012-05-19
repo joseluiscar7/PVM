@@ -41,4 +41,8 @@ public class PizzaBase {
 	{
 		this.tax = tax;
 	}
+	public int getCookMinutes() {
+		return cookMinutes;
+	}
+
 }

@@ -37,23 +37,13 @@ public class InitView extends View {
 		frameLauncher.dispose();
 	}
 
-	public void clickPVMAus()
+	public void clickPVM(int idx)
 	{
-		getViewModel().eventSelectAustralia();
+		getViewModel().eventSelect(idx);
 	}
 	
-	public void clickPVMChina()
+	public void clickService(int idx)
 	{
-		getViewModel().eventSelectChina();
-	}
-	
-	public void clickPVMIndia()
-	{
-		getViewModel().eventSelectIndia();
-	}
-	
-	public void clickService()
-	{
-		getViewModel().eventService();
+		getViewModel().eventService(idx);
 	}
 }

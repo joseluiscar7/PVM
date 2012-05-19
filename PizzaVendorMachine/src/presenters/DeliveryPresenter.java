@@ -35,8 +35,11 @@ public class DeliveryPresenter extends Presenter {
 			tax += t.getTax();			
 		}
 		pizzaInfo += "Price (Tax incl):  " + price + "\n";
-		pizzaInfo += "Tax:                       " + tax;
+		pizzaInfo += "Tax:                       " + tax + "\n";
+		pizzaInfo += "Amount Paid:      " + context.getPaidAmount() + "\n";
+		pizzaInfo += "Change:               " + (context.getPaidAmount() - price);
 		getViewModel().setPizzaInfo(pizzaInfo);
+		getViewModel().setCookTime(context.getPizzaBase().getCookMinutes());
 	}
 	
 	@BindEvent(name="Return")

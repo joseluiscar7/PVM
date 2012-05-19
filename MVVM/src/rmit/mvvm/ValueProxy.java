@@ -5,6 +5,7 @@ import java.util.*;
 class ValueProxy {
 	private Map<String, ValueObservable> valueMap = new HashMap();
 	private Map<String, EventObservable> eventMap = new HashMap();
+	private Map<String, Object> objectMap = new HashMap();
 	
 	public void addValueObservable(String name, ValueObserver observer)
 	{
@@ -23,7 +24,10 @@ class ValueProxy {
 	public void setValue(String name, Object value)
 	{
 		if (!valueMap.containsKey(name))
+		{
+			objectMap.put(name, value);
 			return;
+		}
 		
 		valueMap.get(name).setValue(value);
 	}
@@ -31,7 +35,7 @@ class ValueProxy {
 	public Object getValue(String name)
 	{
 		if (!valueMap.containsKey(name))
-			return null;
+			return objectMap.containsKey(name) ? objectMap.get(name) : null;
 		
 		return valueMap.get(name).getValue();
 	}

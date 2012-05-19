@@ -1,10 +1,8 @@
 <panel gap="4" top="4" left="4" bottom="4" right="1" columns="2">
-  <panel columns="1" weightx="80" weighty="100">
-    <button text="Pizza Vendor Machine (AUSTRALIA)" weighty="10" action="clickPVMAus()" />
-    <button text="Pizza Vendor Machine (CHINA)" weighty="10" action="clickPVMChina()" />
-    <button text="Pizza Vendor Machine (INDIA)" weighty="10" action="clickPVMIndia()" />
-  </panel>
-  <panel columns="1" weightx="20">
-    <button text="Service" weightx="100" weighty="100" action="clickService()" />
-  </panel>
+    <button text="Pizza Vendor Machine (AUSTRALIA)" weightx="80" weighty="10" action="clickPVM(1)" />
+    <button text="Service" weightx="20" action="clickService(1)" />
+    <button text="Pizza Vendor Machine (CHINA)" weightx="80" weighty="10" action="clickPVM(2)" />
+    <button text="Service" weightx="20" action="clickService(2)" />
+    <button text="Pizza Vendor Machine (INDIA)" weightx="80" weighty="10" action="clickPVM(3)" />
+    <button text="Service" weightx="20" action="clickService(3)" />
 </panel>

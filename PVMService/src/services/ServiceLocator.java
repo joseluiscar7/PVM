@@ -17,7 +17,8 @@ public class ServiceLocator
 			PizzaDataService pizzaDataService = new PizzaDataServiceImpl(sm, pizzaInfoDataService);
 			StockDataService stockDataService = new StockDataServiceImpl(sm, pizzaDataService);
 			VendorDataService vendorDataService = new VendorDataServiceImpl(sm, countryDataService, stockDataService);
-			pizzaService = new PizzaServiceImpl(null, stockDataService, vendorDataService);
+			OrderDataService orderDataService = new OrderDataServiceImpl(sm);
+			pizzaService = new PizzaServiceImpl(orderDataService, stockDataService, vendorDataService);
 		}
 		return pizzaService;
 	}

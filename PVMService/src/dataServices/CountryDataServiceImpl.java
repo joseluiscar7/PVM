@@ -1,8 +1,6 @@
 package dataServices;
 
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 import dataAccess.*;
 import models.*;
 
@@ -16,14 +14,14 @@ public class CountryDataServiceImpl implements CountryDataService {
 
 	@Override
 	public Country getCountryById(int countryId) {
-		List<Coin> coins;
+		List<Coin> coins = new ArrayList();
 		Country result = null;
 		Session s = sessionManager.getSession();
 		QueryResult qr = s.executeQuery("select Name, Value from CountryCoins where CountryID = ?", countryId);
 		for(Object obj : qr)
 		{
 			Map<String, Object> row = (Map<String, Object>)obj;
-			coins.add(new Coin((String)row.get("Name"), (float)row.get("Value")));
+			coins.add(new Coin((String)row.get("Name"), ((Double)row.get("Value")).floatValue()));
 		}
 		
 		qr.close();
@@ -31,7 +29,7 @@ public class CountryDataServiceImpl implements CountryDataService {
 		for(Object obj : qr)
 		{
 			Map<String, Object> row = (Map<String, Object>)obj;
-			result = new Country(countryId, (String)row.get("Name"), (String)row.get("CurrencyName"), coins.toArray());
+			result = new Country(countryId, (String)row.get("Name"), (String)row.get("CurrencyName"), coins.toArray(new Coin[] {}));
 			break;
 		}
 		qr.close();

@@ -13,6 +13,9 @@ public interface DeliveryViewModel extends ViewModel {
 	String getPizzaInfo();
 	void setPizzaInfo(String value);
 	
+	int getCookTime();
+	void setCookTime(int value);
+	
 	void eventReturn();
 
 }

@@ -1,5 +1,12 @@
 <panel gap="4" top="4" left="4" bottom="4" right="1" columns="1">
-  <label text="Your meal is ready! Please collect your pizza." weighty="20" weightx="100"/>
-  <textarea name="info" weighty="60" />
-  <button text="Return To Selection" weighty="20" action="clickReturn()" />
+  <panel name="pnlCooking" weightx="100" weighty="100" columns="1">
+    <label text="Cooking..." alignment="center" weighty="10" weightx="100"/>
+    <label name="lbCookTime" alignment="center" weighty="80"/>
+    <label text="Minutes Remaining" alignment="center" weighty="10"/>
+  </panel>
+  <panel name="pnlCooked" weightx="100" weighty="100" visible="false" columns="1">
+    <label text="Your meal is ready! Please collect your pizza." weighty="20" weightx="100"/>
+    <textarea name="info" weighty="60" />
+    <button text="Return To Selection" weighty="20" action="clickReturn()" />
+  </panel>
 </panel>

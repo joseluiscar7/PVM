@@ -11,14 +11,10 @@ import views.SelectPizzaView;
 
 public class SelectPizzaState extends State {
 	private PizzaService pizzaService; 
-	
-	public SelectPizzaState(PizzaService pizzaService) {
-		this.pizzaService = pizzaService;
-	}
 
 	@Override
 	public void start() {
-		Presenter presenter = new SelectPizzaPresenter(this, pizzaService);
+		Presenter presenter = new SelectPizzaPresenter(this);
 		View view= new SelectPizzaView(); 
 		MVVMFramework framework = new MVVMFramework(presenter, view, SelectPizzaViewModel.class);
 		framework.load();

@@ -5,5 +5,5 @@ import models.Vendor;
 
 public interface PizzaService {
 	Vendor getVendorById(int id);
-	Order placeOrder(Order order);
+	boolean placeOrder(Order order);
 }

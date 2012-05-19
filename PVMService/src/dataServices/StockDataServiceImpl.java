@@ -20,14 +20,14 @@ public class StockDataServiceImpl implements StockDataService {
 	@Override
 	public void saveAmount(BaseStock t) {
 		Session s = sessionManager.getSession();
-		s.executeNonQuery("update VendorStock set amount = ? where VendorID = ? and BaseID = ?", t.getCount(), t.getVendorId(), t.getBase().getId());
+		s.executeNonQuery("update VendorStock set Count = ? where VendorID = ? and BaseID = ?", t.getCount(), t.getVendorId(), t.getBase().getId());
 		s.close();		
 	}
 
 	@Override
 	public void saveAmount(ToppingStock t) {
 		Session s = sessionManager.getSession();
-		s.executeNonQuery("update VendorStock set amount = ? where VendorID = ? and ToppingID = ?", t.getCount(), t.getVendorId(), t.getTopping().getId());
+		s.executeNonQuery("update VendorStock set Count = ? where VendorID = ? and ToppingID = ?", t.getCount(), t.getVendorId(), t.getTopping().getId());
 		s.close();	
 	}
 
@@ -45,7 +45,7 @@ public class StockDataServiceImpl implements StockDataService {
 	@Override
 	public List<BaseStock> getStockBases(int vendorId, Country country) {
 		Session s = sessionManager.getSession();
-		QueryResult qr = s.executeQuery("select BaseID, Count from VendorStock where VendorID = ? and Count > 0 and BaseID > 0", vendorId);
+		QueryResult qr = s.executeQuery("select BaseID, Count from VendorStock where VendorID = ? and BaseID > 0", vendorId);
 		List<IdCount> idCounts = new ArrayList<IdCount>();
 		for(Object obj : qr)
 		{
@@ -65,7 +65,7 @@ public class StockDataServiceImpl implements StockDataService {
 	@Override
 	public List<ToppingStock> getStockToppings(int vendorId, Country country) {
 		Session s = sessionManager.getSession();
-		QueryResult qr = s.executeQuery("select ToppingID, Count from VendorStock where VendorID = ? and Count > 0 and ToppingID > 0", vendorId);
+		QueryResult qr = s.executeQuery("select ToppingID, Count from VendorStock where VendorID = ? and ToppingID > 0", vendorId);
 		List<IdCount> idCounts = new ArrayList<IdCount>();
 		for(Object obj : qr)
 		{

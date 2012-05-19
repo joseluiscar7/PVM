@@ -94,11 +94,18 @@ insert into CountryCoins (CountryID, Name, Value) values(1, '20c', 0.2);
 insert into CountryCoins (CountryID, Name, Value) values(1, '50c', 0.5);
 insert into CountryCoins (CountryID, Name, Value) values(1, '$1', 1);
 insert into CountryCoins (CountryID, Name, Value) values(1, '$2', 2);
+insert into CountryCoins (CountryID, Name, Value) values(1, '$5', 5);
+insert into CountryCoins (CountryID, Name, Value) values(1, '$10', 10);
+insert into CountryCoins (CountryID, Name, Value) values(1, '$20', 20);
 
 insert into CountryCoins (CountryID, Name, Value) values(2, '10 fen', 0.1);
 insert into CountryCoins (CountryID, Name, Value) values(2, '20 fen', 0.2);
 insert into CountryCoins (CountryID, Name, Value) values(2, '50 fen', 0.5);
 insert into CountryCoins (CountryID, Name, Value) values(2, '1 yuan', 1);
+insert into CountryCoins (CountryID, Name, Value) values(2, '2 yuan', 2);
+insert into CountryCoins (CountryID, Name, Value) values(2, '5 yuan', 5);
+insert into CountryCoins (CountryID, Name, Value) values(2, '10 yuan', 10);
+insert into CountryCoins (CountryID, Name, Value) values(2, '20 yuan', 20);
 
 insert into CountryCoins (CountryID, Name, Value) values(3, '10 paise', 0.1);
 insert into CountryCoins (CountryID, Name, Value) values(3, '25 paise', 0.25);
@@ -156,4 +163,6 @@ insert into VendorStock (VendorID, BaseID, ToppingID, Count) values(3, -1, 3, 40
 insert into VendorStock (VendorID, BaseID, ToppingID, Count) values(3, -1, 4, 40);
 insert into VendorStock (VendorID, BaseID, ToppingID, Count) values(3, -1, 5, 40);
 
-create table Orders(ID integer primary key autoincrement, VendorID integer references Vendor(ID), BaseID integer references Base(ID), ToppingID integer references Topping(ID), OrderTime integer, Amount real);
+create table Orders(ID integer primary key autoincrement, VendorID integer references Vendor(ID), BaseID integer references Base(ID), OrderTime integer, Amount real);
+
+create table ToppingOrders(ID integer primary key autoincrement, OrderID integer references Orders(ID), ToppingID integer references Topping(ID), Amount real);

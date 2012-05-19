@@ -6,28 +6,26 @@ public class Order {
 	private int id;
 	private Date orderTime;
 	private PizzaBase pizzaBase;
-	private PizzaTopping pizzaTopping;
+	private PizzaTopping[] pizzaToppings;
 	private Vendor vendor;
 	private float amount;
 	
 	private void setValues(int id, Date orderTime, PizzaBase pizzaBase,
-			PizzaTopping pizzaTopping, Vendor vendor) {
+			PizzaTopping[] pizzaToppings, Vendor vendor) {
 		this.id = id;
 		this.orderTime = orderTime;
 		this.pizzaBase = pizzaBase;
-		this.pizzaTopping = pizzaTopping;
+		this.pizzaToppings = pizzaToppings;
 		this.vendor = vendor;
-		this.amount = pizzaBase.getPrice() + pizzaTopping.getPrice();
+		this.amount = pizzaBase.getPrice();
+		for(PizzaTopping t : pizzaToppings)
+		{
+			 this.amount += t.getPrice();
+		}
 	}
-	
-	Order(Date orderTime, PizzaBase pizzaBase,
-			PizzaTopping pizzaTopping, Vendor vendor) {
-		setValues(-1, orderTime, pizzaBase, pizzaTopping, vendor);
-	}
-	
-	public Order(int id, Date orderTime, PizzaBase pizzaBase,
-			PizzaTopping pizzaTopping, Vendor vendor) {
-		setValues(id, orderTime, pizzaBase, pizzaTopping, vendor);
+	public Order(PizzaBase pizzaBase,
+			PizzaTopping[] pizzaToppings, Vendor vendor) {
+		setValues(0, new Date(), pizzaBase, pizzaToppings, vendor);
 	}
 	
 	public int getId() {
@@ -39,8 +37,8 @@ public class Order {
 	public PizzaBase getPizzaBase() {
 		return pizzaBase;
 	}
-	public PizzaTopping getPizzaTopping() {
-		return pizzaTopping;
+	public PizzaTopping[] getPizzaToppings() {
+		return pizzaToppings;
 	}
 	public Vendor getVendor() {
 		return vendor;

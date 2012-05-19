@@ -3,11 +3,9 @@ package views;
 import java.io.IOException;
 import java.util.*;
 
-import rmit.mvvm.BindValue;
-import rmit.mvvm.View;
-import thinlet.FrameLauncher;
-import thinlet.Thinlet;
-import viewmodels.SelectPizzaViewModel;
+import rmit.mvvm.*;
+import thinlet.*;
+import viewmodels.*;
 
 public class SelectPizzaView extends View {
 	private Thinlet thinlet;
@@ -38,11 +36,13 @@ public class SelectPizzaView extends View {
 	{
 		Object ltPizzaBase = thinlet.find("pizzaBase");
 		thinlet.removeAll(ltPizzaBase);
-		List<String> pizzaBaseList = getViewModel().getPizzaBaseList();
-		for(String base : pizzaBaseList)
+		List<PizzaBaseListViewModel> pizzaBaseList = getViewModel().getPizzaBaseList();
+		for(PizzaBaseListViewModel base : pizzaBaseList)
 		{
 			Object item = Thinlet.create("item");
-			thinlet.setString(item, "text", base);
+			thinlet.setString(item, "text", base.getName());
+			if (base.getStock() == 0)
+				thinlet.setBoolean(item, "enabled", false);
 			thinlet.add(ltPizzaBase, item);
 		}
 	}
@@ -52,11 +52,13 @@ public class SelectPizzaView extends View {
 	{
 		Object ltPizzaTopping = thinlet.find("pizzaTopping");
 		thinlet.removeAll(ltPizzaTopping);
-		List<String> pizzaToppingList = getViewModel().getPizzaToppingList();
-		for(String topping : pizzaToppingList)
+		List<PizzaToppingListViewModel> pizzaToppingList = getViewModel().getPizzaToppingList();
+		for(PizzaToppingListViewModel topping : pizzaToppingList)
 		{
 			Object item = Thinlet.create("item");
-			thinlet.setString(item, "text", topping);
+			thinlet.setString(item, "text", topping.getName());
+			if (topping.getStock() == 0)
+				thinlet.setBoolean(item, "enabled", false);			
 			thinlet.add(ltPizzaTopping, item);
 		}
 	}
@@ -73,14 +75,21 @@ public class SelectPizzaView extends View {
 	public void updatePrice()
 	{
 		Object lbPrice = thinlet.find("price");
-		thinlet.setString(lbPrice, "text", "Price:  " + getViewModel().getPrice());
+		thinlet.setString(lbPrice, "text", "Price:  " + getViewModel().getPrice() + " " + getViewModel().getCurrency());
 	}
 
 	
 	public void selectPizzaBase(Object list)
 	{
 		int itemIndex = thinlet.getSelectedIndex(list);
+		Object item = thinlet.getItem(list, itemIndex);
+		if (!thinlet.getBoolean(item, "enabled"))
+		{
+			thinlet.setBoolean(item, "selected", false);
+			itemIndex = -1;
+		}
 		getViewModel().eventSelectPizzaBase(itemIndex);
+		
 	}
 	
 	public void selectPizzaToppings(Object list)
@@ -90,7 +99,12 @@ public class SelectPizzaView extends View {
 		List<Integer> values = new ArrayList();
 		for(Object item : items)
 		{
-			values.add(allItems.indexOf(item));
+			if (thinlet.getBoolean(item, "enabled"))
+				values.add(allItems.indexOf(item));
+			else
+			{
+				thinlet.setBoolean(item, "selected", false);
+			}				
 		}
 		getViewModel().eventSelectPizzaToppings(values.toArray());
 	}

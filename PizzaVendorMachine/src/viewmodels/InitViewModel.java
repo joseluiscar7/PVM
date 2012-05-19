@@ -8,8 +8,6 @@ public interface InitViewModel extends ViewModel {
 	boolean getExitView();
 	void setExitView(boolean value);
 	
-	void eventSelectAustralia();
-	void eventSelectChina();
-	void eventSelectIndia();
-	void eventService();
+	void eventSelect(int idx);
+	void eventService(int idx);
 }

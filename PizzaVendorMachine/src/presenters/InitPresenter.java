@@ -26,26 +26,14 @@ public class InitPresenter extends Presenter {
 	private void selectVendor(int vendorID)
 	{
 		getViewModel().setExitView(true);
-		state.getStateContext().setVendorID(vendorID);
+		state.getStateContext().setVendor(state.getStateContext().getPizzaService().getVendorById(vendorID));
 		state.stop();
 	}
 	
-	@BindEvent(name="SelectAustralia")
-	public void onSelectAustralia(Object[] args)
+	@BindEvent(name="Select")
+	public void onSelect(Object[] args)
 	{
-		selectVendor(1);
-	}
-	
-	@BindEvent(name="SelectChina")
-	public void onSelectChina(Object[] args)
-	{
-		selectVendor(2);
-	}
-	
-	@BindEvent(name="SelectIndia")
-	public void onSelectIndia(Object[] args)
-	{
-		selectVendor(3);
+		selectVendor((Integer)args[0]);
 	}
 	
 	@BindEvent(name="Service")

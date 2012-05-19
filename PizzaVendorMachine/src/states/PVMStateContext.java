@@ -2,23 +2,33 @@ package states;
 
 import models.*;
 import rmit.utils.workflow.StateContext;
+import services.PizzaService;
 
 public class PVMStateContext implements StateContext {
-	private boolean cancelPayment = false;
 	private PizzaBase pizzaBase;
 	private PizzaTopping[] pizzaToppings;
-	private int vendorID = 0;
+	private Vendor vendor;
 	private float price;
 	private float tax;
+	private float paidAmount;
+	private PizzaService pizzaService;
 
-	public boolean isCancelPayment() {
-		return cancelPayment;
+	public Vendor getVendor() {
+		return vendor;
 	}
 
-	public void setCancelPayment(boolean cancelPayment) {
-		this.cancelPayment = cancelPayment;
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
 	}
 
+	public float getPaidAmount() {
+		return paidAmount;
+	}
+
+	public void setPaidAmount(float paidAmount) {
+		this.paidAmount = paidAmount;
+	}
+	
 	public PizzaBase getPizzaBase() {
 		return pizzaBase;
 	}
@@ -35,14 +45,6 @@ public class PVMStateContext implements StateContext {
 		this.pizzaToppings = pizzaToppings;
 	}
 
-	public int getVendorID() {
-		return vendorID;
-	}
-
-	public void setVendorID(int vendorID) {
-		this.vendorID = vendorID;
-	}
-
 	public float getTax() {
 		return tax;
 	}
@@ -57,5 +59,13 @@ public class PVMStateContext implements StateContext {
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public PizzaService getPizzaService() {
+		return pizzaService;
+	}
+
+	public void setPizzaService(PizzaService pizzaService) {
+		this.pizzaService = pizzaService;
 	}
 }

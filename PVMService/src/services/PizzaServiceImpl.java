@@ -8,6 +8,7 @@ import dataServices.VendorDataService;
 
 import models.BaseStock;
 import models.Order;
+import models.PizzaTopping;
 import models.ToppingStock;
 import models.Vendor;
 
@@ -29,12 +30,13 @@ public class PizzaServiceImpl implements PizzaService {
 	}
 
 	@Override
-	public Order placeOrder(Order order) {
+	public boolean placeOrder(Order order) {
 		List<BaseStock> baseStockList = order.getVendor().getBaseStockList();
 		List<ToppingStock> toppingStockList = order.getVendor().getToppingStockList();
 		
 		
-		Order ret = orderDataService.add(order);
+		if (!orderDataService.add(order))
+			return false;
 		
 		BaseStock b = null;
 		ToppingStock t = null;
@@ -47,24 +49,24 @@ public class PizzaServiceImpl implements PizzaService {
 			}
 		}
 		if (b == null || b.getCount() == 0)
-			return null;
-		for(ToppingStock item : toppingStockList)
-		{
-			if (item.getTopping().equals(order.getPizzaTopping()))
-			{
-				t = item;
-				break;
-			}
-		}
-		if (t == null || t.getCount() == 0)
-			return null;
+			return false;
 		
 		b.setCount(b.getCount() - 1);
-		t.setCount(t.getCount() - 1);
-		
 		stockDataService.saveAmount(b);
-		stockDataService.saveAmount(t);
-		return ret;
+		
+		for(ToppingStock item : toppingStockList)
+		{
+			PizzaTopping[] toppings = order.getPizzaToppings();
+			for(PizzaTopping topping : toppings)
+			{
+				if (item.getTopping().equals(topping))
+				{
+					item.setCount(item.getCount() - 1);
+					stockDataService.saveAmount(item);
+				}
+			}
+		}
+		return true;
 	}
 	
 }

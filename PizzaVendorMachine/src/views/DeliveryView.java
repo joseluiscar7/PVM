@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.util.*;
 
@@ -28,6 +29,25 @@ public class DeliveryView extends View {
 	@Override
 	public void load() {
 		frameLauncher = new FrameLauncher("Delivery Screen", thinlet, 320, 240);
+		
+		final int totalCookTime = getViewModel().getCookTime();
+		final Object lbCookTime = thinlet.find("lbCookTime");
+		thinlet.setFont(lbCookTime, new Font("Arial", Font.BOLD, 64));
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				int cookTime = totalCookTime;
+				for(; cookTime > 0; cookTime-- )
+				{
+					thinlet.setString(lbCookTime, "text", String.format("%d", cookTime));
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {}
+				}
+				thinlet.setBoolean(thinlet.find("pnlCooking"), "visible", false);
+				thinlet.setBoolean(thinlet.find("pnlCooked"), "visible", true);
+			}
+		}).start();
 	}
 	
 	@BindValue(name="ExitView")
