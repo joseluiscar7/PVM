@@ -18,28 +18,21 @@ public class InitPresenter extends Presenter {
 	{
 		return (InitViewModel)super.getViewModel();
 	}
-	
-	public void load()
-	{
-	}
-	
-	private void selectVendor(int vendorID)
-	{
-		getViewModel().setExitView(true);
-		state.getStateContext().setVendor(state.getStateContext().getPizzaService().getVendorById(vendorID));
-		state.stop();
-	}
-	
+
 	@BindEvent(name="Select")
 	public void onSelect(Object[] args)
 	{
-		selectVendor((Integer)args[0]);
+		getViewModel().setExitView(true);
+		state.getStateContext().setVendor(state.getStateContext().getPizzaService().getVendorById((Integer)args[0]));
+		state.stop();
 	}
 	
 	@BindEvent(name="Service")
 	public void onService(Object[] args)
 	{
 		getViewModel().setExitView(true);
+		state.getStateContext().setVendor(state.getStateContext().getPizzaService().getVendorById((Integer)args[0]));
+		state.getStateContext().setShowAdmin(true);
 		state.stop();
 	}
 }

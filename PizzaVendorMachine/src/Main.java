@@ -17,8 +17,16 @@ public class Main {
 		SelectPizzaState selectPizzaState = new SelectPizzaState();
 		OrderPizzaState orderPizzaState = new OrderPizzaState();
 		DeliverPizzaState deliverPizzaState = new DeliverPizzaState();
+		AdminState adminState = new AdminState();
 		
 		Engine engine = new Engine();
+		engine.from(initState).to(adminState).when(new Condition() {
+			@Override
+			public boolean check(StateContext data) {
+				return ((PVMStateContext)data).isShowAdmin();
+			}
+			
+		});
 		engine.from(initState).to(selectPizzaState).to(orderPizzaState).to(selectPizzaState).when(new Condition() {
 			@Override
 			public boolean check(StateContext data) {

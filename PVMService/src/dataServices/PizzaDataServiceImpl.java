@@ -56,4 +56,32 @@ public class PizzaDataServiceImpl implements PizzaDataService {
 		s.close();	
 		return new PizzaTopping(toppingId, country, toppingName, price, tax);
 	}
+
+	@Override
+	public boolean updatePizzaBasePrice(int countryId, int baseId, float value) {
+		Session s = sessionManager.getSession();
+		try 
+		{
+			return s.executeNonQuery("update CountryBase set BasePrice = ? where CountryID = ? and BaseID = ?", ((Float)value).doubleValue(), countryId, baseId);
+		}
+		finally
+		{
+			s.close();
+		}
+	}
+
+	@Override
+	public boolean updatePizzaToppingPrice(int countryId, int toppingId, float value) {
+		Session s = sessionManager.getSession();
+		try 
+		{
+			return s.executeNonQuery("update CountryTopping set ToppingPrice = ? where CountryID = ? and ToppingID = ?", ((Float)value).doubleValue(), countryId, toppingId);
+		}
+		finally
+		{
+			s.close();
+		}
+	}
+	
+	
 }

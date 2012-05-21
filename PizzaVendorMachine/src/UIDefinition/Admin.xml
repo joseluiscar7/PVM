@@ -1,0 +1,45 @@
+<panel gap="4" top="4" left="4" bottom="4" right="1" columns="1">
+  <panel name="pnlLogin" weightx="100" weighty="100" columns="2" gap="20">
+    <label text="Username:" alignment="center" weighty="10" weightx="30"/>
+    <textfield name="user" weightx="70" />
+    <label text="Password" alignment="center" weighty="10"/>
+    <passwordfield name="pass" />
+    <button text="Login" weighty="10" action="login(user.text, pass.text)" colspan="2"/>
+  </panel>
+  <tabbedpane name="pnlViewStock" placement="top" selected="0" weightx="100" weighty="100" visible="false">
+    <tab text="Pizza Bases">
+      <panel columns="1">
+        <table name="tblBase" selection="multiple" weightx="100" weighty="95" action="itemSelected(this,1,lblSetBase)">
+    	  <header>
+    	  	<column text="Base name" width="230" />
+  	    	<column text="Price" width="40" />
+  	    	<column text="Stock" width="35" />
+    	  </header>
+  	    </table>
+  	    <panel weighty="5" gap="4" top="6" bottom="6">
+  	  	  <button text="Refill" weighty="100" action="clickRefill(1)"/>
+  	  	  <label name="lblSetBase" text="Set price" halign="right" weightx="100"/>
+  	  	  <textfield name="baseValue" />
+  	  	  <button text="Set" action="clickSet(1,baseValue.text)"/>
+  	    </panel>
+  	  </panel>
+  	</tab>
+  	<tab text="Pizza Toppings">
+      <panel columns="1">
+        <table name="tblTopping" selection="multiple" weightx="100" weighty="95" action="itemSelected(this,2,lblSetTopping)">
+    	  <header>
+    	  	<column text="Topping name" width="230" />
+  	    	<column text="Price" width="40" />
+  	    	<column text="Stock" width="35" />
+    	  </header>
+  	    </table>
+  	    <panel weighty="5" gap="4" top="6" bottom="6">
+  	  	  <button text="Refill" weighty="100" action="clickRefill(2)"/>
+  	  	  <label name="lblSetTopping" text="Set price" halign="right" weightx="100"/>
+  	  	  <textfield name="toppingValue" />
+  	  	  <button text="Set" action="clickSet(2,toppingValue.text)"/>
+  	    </panel>
+  	  </panel>
+  	</tab>  	  
+  </tabbedpane>
+</panel>

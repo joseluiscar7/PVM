@@ -12,6 +12,7 @@ public class PVMStateContext implements StateContext {
 	private float tax;
 	private float paidAmount;
 	private PizzaService pizzaService;
+	private boolean showAdmin;
 
 	public Vendor getVendor() {
 		return vendor;
@@ -67,5 +68,13 @@ public class PVMStateContext implements StateContext {
 
 	public void setPizzaService(PizzaService pizzaService) {
 		this.pizzaService = pizzaService;
+	}
+
+	public boolean isShowAdmin() {
+		return showAdmin;
+	}
+
+	public void setShowAdmin(boolean showAdmin) {
+		this.showAdmin = showAdmin;
 	}
 }

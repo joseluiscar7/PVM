@@ -11,4 +11,6 @@ public interface StockDataService {
 	void saveAmount(ToppingStock t);
 	List<BaseStock> getStockBases(int vendorId, Country country);
 	List<ToppingStock> getStockToppings(int vendorId, Country country);
+	boolean updateStockBaseCount(int vendorId, int baseId, int value);
+	boolean updateStockToppingCount(int vendorId, int toppingId, int value);	
 }

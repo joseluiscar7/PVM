@@ -81,4 +81,30 @@ public class StockDataServiceImpl implements StockDataService {
 		}
 		return result;
 	}
+
+	@Override
+	public boolean updateStockBaseCount(int vendorId, int baseId, int value) {
+		Session s = sessionManager.getSession();
+		try 
+		{
+			return s.executeNonQuery("update VendorStock set Count = ? where VendorID = ? and BaseID = ?", value, vendorId, baseId);
+		}
+		finally
+		{
+			s.close();
+		}
+	}
+
+	@Override
+	public boolean updateStockToppingCount(int vendorId, int toppingId,	int value) {
+		Session s = sessionManager.getSession();
+		try 
+		{
+			return s.executeNonQuery("update VendorStock set Count = ? where VendorID = ? and ToppingID = ?", value, vendorId, toppingId);
+		}
+		finally
+		{
+			s.close();
+		}
+	}
 }

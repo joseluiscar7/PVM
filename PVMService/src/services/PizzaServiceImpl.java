@@ -2,26 +2,21 @@ package services;
 
 import java.util.List;
 
-import dataServices.OrderDataService;
-import dataServices.StockDataService;
-import dataServices.VendorDataService;
-
-import models.BaseStock;
-import models.Order;
-import models.PizzaTopping;
-import models.ToppingStock;
-import models.Vendor;
+import dataServices.*;
+import models.*;
 
 public class PizzaServiceImpl implements PizzaService {
 	private OrderDataService orderDataService;
 	private StockDataService stockDataService;
 	private VendorDataService vendorDataService;
+	private PizzaDataService pizzaDataService;
 
-	public PizzaServiceImpl(OrderDataService orderDataService, StockDataService stockDataService, VendorDataService vendorDataService)
+	public PizzaServiceImpl(OrderDataService orderDataService, StockDataService stockDataService, VendorDataService vendorDataService, PizzaDataService pizzaDataService)
 	{
 		this.orderDataService = orderDataService;
 		this.stockDataService = stockDataService;
 		this.vendorDataService = vendorDataService;
+		this.pizzaDataService = pizzaDataService;
 	}
 
 	@Override
@@ -68,5 +63,61 @@ public class PizzaServiceImpl implements PizzaService {
 		}
 		return true;
 	}
+
+	@Override
+	public boolean authenticateUser(String username, String password) {
+		if (username.equals("admin") && password.equals("admin"))
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean setBasePrice(PizzaBase base, float value) {
+		if (pizzaDataService.updatePizzaBasePrice(base.getCountry().getId(), base.getId(), value))
+		{
+			base.setPrice(value);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean setToppingPrice(PizzaTopping topping, float value) {
+		if (pizzaDataService.updatePizzaToppingPrice(topping.getCountry().getId(), topping.getId(), value))
+		{
+			topping.setPrice(value);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean refillStockBase(BaseStock baseStock) {
+		int amount = 10;
+		if (baseStock.getCount() == amount)
+			return true;
+		
+		if (stockDataService.updateStockBaseCount(baseStock.getVendorId(), baseStock.getBase().getId(), amount))
+		{
+			baseStock.setCount(amount);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean refillStockTopping(ToppingStock toppingStock) {
+		int amount = 40;
+		if (toppingStock.getCount() == amount)
+			return true;
+		
+		if (stockDataService.updateStockToppingCount(toppingStock.getVendorId(), toppingStock.getTopping().getId(), amount))
+		{
+			toppingStock.setCount(amount);
+			return true;
+		}
+		return false;
+	}
+	
 	
 }
